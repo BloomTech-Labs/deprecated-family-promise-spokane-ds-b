@@ -21,6 +21,9 @@ scikit-learn = "*"
 category-encoders = "*"
 joblib = "*"
 psycopg2-binary = "*"
+streamlit = "*"
+shap = "*"
+pdpbox = "*"
 
 [requires]
 python_version = "3"
