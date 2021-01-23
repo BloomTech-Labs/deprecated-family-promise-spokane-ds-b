@@ -1,0 +1,7 @@
+
+
+Todo - 
+    Come up with 4 basic charts - per all occupancy
+    allow basic charts to filter by date range
+    come up with 4 basic charts - per houseHold
+    create basic file
