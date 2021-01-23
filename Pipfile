@@ -25,6 +25,8 @@ streamlit = "*"
 shap = "*"
 PDPbox = "*"
 xgboost = "*"
+catboost = "*"
+eli5 = "*"
 
 [requires]
 python_version = "3"
