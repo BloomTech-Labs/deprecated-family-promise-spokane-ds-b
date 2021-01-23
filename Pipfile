@@ -9,7 +9,7 @@ pytest = "*"
 
 [packages]
 fastapi = "*"
-sqlalchemy = "*"
+SQLAlchemy = "*"
 numpy = "*"
 pandas = "*"
 jupyter = "*"
@@ -23,7 +23,8 @@ joblib = "*"
 psycopg2-binary = "*"
 streamlit = "*"
 shap = "*"
-pdpbox = "*"
+PDPbox = "*"
+xgboost = "*"
 
 [requires]
 python_version = "3"
