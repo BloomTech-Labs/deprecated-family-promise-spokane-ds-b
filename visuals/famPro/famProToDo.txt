@@ -1,7 +1,15 @@
 
 
 Todo - 
+    Working title - FAMPro(Family promise Analytics Mode Prototype)
     Come up with 4 basic charts - per all occupancy
+        (Each one of these can be viewed for population, Hoh, or dependents)
+        #Current Age - histogram to show enrollment distribution
+        #Gender  - pie chart that shows Gender enrollment distribution
+        Or I could combine the above two graphs in to a bivariate chart Age, colored by Gender
+
+
     allow basic charts to filter by date range
     come up with 4 basic charts - per houseHold
-    create basic file
+        Count of Bed Nights (Housing Check-ins)
+    create basic st file
