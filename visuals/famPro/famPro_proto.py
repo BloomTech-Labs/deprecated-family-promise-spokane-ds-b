@@ -14,8 +14,7 @@ import df_cleaner
 """
 
 
-# file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-a/main/All_data_with_exits.csv"
-file = "/Users/kellycho/Desktop/Repos/family-promise-spokane-ds-b/visuals/famPro/cleanedData02.csv"
+file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/ergVizExitVariable/visuals/famPro/cleanedData02.csv"
 df = pd.read_csv(file, parse_dates=["Enroll Date", "Exit Date"])
 
 
