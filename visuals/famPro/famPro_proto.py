@@ -123,7 +123,7 @@ selection = alt.selection_multi(fields=["Gender"], bind="legend")
 
 test2 = alt.Chart(source).mark_bar().encode(
     alt.X("Current Age", title = "Current Guest Age"),
-    alt.Y('count()'),
+    alt.Y('count()', stack = None),
     color="Gender",
     opacity=alt.condition(selection, alt.value(1), alt.value(0.2))
 ).add_selection(
