@@ -31,11 +31,11 @@ img = Image.open("/mnt/c/Users/USER/Documents/GitHub/familypromise/family-promis
 st.image(img, width= 900)
 st.title("Data Visualizations Dashboard")
 
-#uploaded_file = '/mnt/c/Users/USER/Documents/GitHub/familypromise/family-promise-spokane-ds-b/viz-dash/All_data_with_exits_cleaned.csv'
+# data = pd.read_csv('/mnt/c/Users/USER/Documents/GitHub/familypromise/family-promise-spokane-ds-b/viz-dash/cleaned2.csv') 
+# uploaded_file = data
 #uploading dataframe for model interpretation
 def upload_data(uploaded_file):
     if uploaded_file is not None:
-        st.sidebar.success("File uploaded!")
         df = pd.read_csv(uploaded_file, encoding="utf8")
         # replace all non alphanumeric column names to avoid lgbm issue
         df.columns = [
@@ -43,7 +43,7 @@ def upload_data(uploaded_file):
         ]
         # make the last col the default outcome
         col_arranged = df.columns[:-1].insert(0, df.columns[-1])
-        target_col = st.sidebar.selectbox(
+        target_col = st.selectbox(
             "Then choose the target variable", col_arranged
         )
         X, y, features, target_labels = encode_data(df, target_col)
@@ -70,6 +70,8 @@ def make_pred(dim_model, X_test, clf):
     """get y_pred using the classifier"""
     if dim_model == "XGBoost":
         pred = clf.predict(DMatrix(X_test))
+    else:
+        pred = clf.predict(X_test)
     return pred
 
 def show_global_interpretation_eli5(X_train, y_train, features, clf, dim_model):
@@ -151,41 +153,45 @@ def main():
     ################################################
     # upload file
     ################################################
+    page_select = st.sidebar.selectbox(
+        "Select Visualizations", ("Machine Learning", "Data Analysis")
+    )
+    if page_select == "Machine Learning":
 
-    uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type="csv")
-
-    df, X, y, features, target_labels = upload_data(uploaded_file)
+        uploaded_file = '/mnt/c/Users/USER/Documents/GitHub/familypromise/family-promise-spokane-ds-b/viz-dash/All_data_with_exits_cleaned_demo_v2.csv'
+        
+        df, X, y, features, target_labels = upload_data(uploaded_file)
 
     ################################################
     # process data
     ################################################
 
-    X_train, X_test, y_train, y_test = splitdata(X, y)
+        X_train, X_test, y_train, y_test = splitdata(X, y)
 
     ################################################
     # apply model
     ################################################
-    dim_model = st.sidebar.selectbox(
+        dim_model = st.selectbox(
         "Choose a model", ("XGBoost", "randomforest")
-    )
-    if dim_model == "randomforest":
-        clf = RandomForestClassifier(n_estimators=500, random_state=0, n_jobs=-1)
-        clf.fit(X_train, y_train)
+        )
+        if dim_model == "randomforest":
+            clf = RandomForestClassifier(n_estimators=500, random_state=0, n_jobs=-1)
+            clf.fit(X_train, y_train)
 
-    elif dim_model == "XGBoost":
-        params = {
-            "max_depth": 5,
-            "silent": 1,
-            "random_state": 2,
-            "num_class": len(target_labels),
-        }
-        dmatrix = DMatrix(data=X_train, label=y_train)
-        clf = xgb.train(params=params, dtrain=dmatrix)
+        elif dim_model == "XGBoost":
+            params = {
+                "max_depth": 5,
+                "silent": 1,
+                "random_state": 2,
+                "num_class": len(target_labels),
+            }
+            dmatrix = DMatrix(data=X_train, label=y_train)
+            clf = xgb.train(params=params, dtrain=dmatrix)
 
     ################################################
     # Predict
     ################################################
-    pred = make_pred(dim_model, X_test, clf)
+        pred = make_pred(dim_model, X_test, clf)
 
 
 
@@ -201,45 +207,50 @@ def main():
     ################################################
     # Global Interpretation
     ################################################
-    st.markdown("#### Feature Importance")
-    info_global = st.button("Explanation")
-    if info_global:
-        st.info(
+        st.markdown("#### Feature Importance")
+        info_global = st.button("Explanation")
+        if info_global:
+            st.info(
             """
-        Explanatory data analytics here......
-        """
-        )
+            Explanatory data analytics here......
+            """
+            )
     # This only works if removing newline from html
     # Refactor this once added more models
-    show_global_interpretation_shap(X_train, clf)
+        show_global_interpretation_shap(X_train, clf)
 
 
     ################################################
     # Local Interpretation
     ################################################
-    st.markdown("#### Local Interpretation")
+        st.markdown("#### Local Interpretation")
 
     # misclassified
-    if st.checkbox("Filter for misclassified"):
-        X_test, y_test, pred = filter_misclassified(X_test, y_test, pred)
-        if X_test.shape[0] == 0:
-            st.text("No misclassification🎉")
+        if st.checkbox("Filter for misclassified"):
+            X_test, y_test, pred = filter_misclassified(X_test, y_test, pred)
+            if X_test.shape[0] == 0:
+                st.text("No misclassification🎉")
+            else:
+                st.text(str(X_test.shape[0]) + " misclassified total")
+                show_local_interpretation(
+                    X_test,
+                    y_test,
+                    clf,
+                    pred,
+                    target_labels,
+                    features,
+                    dim_model,
+                    dim_framework,
+                )
         else:
-            st.text(str(X_test.shape[0]) + " misclassified total")
             show_local_interpretation(
-                X_test,
-                y_test,
-                clf,
-                pred,
-                target_labels,
-                features,
-                dim_model,
-                dim_framework,
+                X_test, y_test, clf, pred, target_labels, features, dim_model,
             )
-    else:
-        show_local_interpretation(
-            X_test, y_test, clf, pred, target_labels, features, dim_model,
-        )
+    elif page_select == "Data Analysis":
+
+        uploaded_file = '/mnt/c/Users/USER/Documents/GitHub/familypromise/family-promise-spokane-ds-b/viz-dash/cleaned2.csv'
+
+        df, X, y, features, target_labels = upload_data(uploaded_file)
 
 
 if __name__ == "__main__":
