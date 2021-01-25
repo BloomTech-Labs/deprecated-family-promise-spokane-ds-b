@@ -10,6 +10,7 @@ Todo -
 
     #Made Cleaner class for csv Prototyping (transfered from notebooks)
     # Outputted a cleaned csv which should avoid having to use the Cleaner class
+    # Side bar for selecting All, Hoh, or dependents
 
     allow basic charts to filter by date range
     come up with 4 basic charts - per houseHold
