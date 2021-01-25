@@ -21,6 +21,9 @@ scikit-learn = "*"
 category-encoders = "*"
 joblib = "*"
 psycopg2-binary = "*"
+streamlit = "*"
+eli5 = "*"
+xgboost = "*"
 
 [requires]
 python_version = "3"
