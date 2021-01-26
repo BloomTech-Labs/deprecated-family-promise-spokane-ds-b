@@ -47,8 +47,10 @@ st.subheader("Family Promise of Spokane")
 def upload_data(uploaded_file):
     """To process the csv file in order to return training data"""
     if uploaded_file is not None:
-        st.sidebar.success("File uploaded!")
-        df = pd.read_csv(uploaded_file, encoding="utf8")
+        # """Not in use at the moment"""
+        # st.sidebar.success("File uploaded!")
+        df = pd.read_csv(uploaded_file, index_col='Personal ID',
+                         encoding="utf8")
         col_names = df.columns[:-1].insert(0, df.columns[-1])
         # Dataset preview if selected
         st.sidebar.markdown("#### To display dataset")
@@ -56,7 +58,7 @@ def upload_data(uploaded_file):
             st.dataframe(df.head())
         # Target column is selected by default
         target_cols = st.sidebar.selectbox(
-            "Choose the target varible", col_names
+            "Target variable", col_names[:1]
         )
         X = df.drop(target_cols, axis=1)
         y = df[target_cols]
@@ -84,7 +86,7 @@ def process_data(X_train, X_test, X_val, X):
     encoded_cols = list(range(0, X.shape[1]))
     column_names = list(X.columns)
     features = dict(zip(encoded_cols, column_names))
-    return X_train, X_test, X_val, features, column_names
+    return X_train, X_test, X_val, features, column_names, processor
 
 
 def make_prediction(training_set, model):
@@ -120,7 +122,7 @@ def make_eli5_interpretation(training_set, target, model,
     df_explain = explain_weights_df(perm,
                                     feature_names=features, top=10).round(3)
     bar = (
-        alt.Chart(df_explain)
+        alt.Chart(df_explain, title=f'ELI5 Weights Explained from {ml_name}')
         .mark_bar(color="red", opacity=0.6, size=14)
         .encode(x="weight", y=alt.Y("feature", sort="-x"), tooltip=["weight"])
         .properties(height=300, width=675)
@@ -141,7 +143,8 @@ def make_eli5_interpretation(training_set, target, model,
 
     fig, ax = plt.subplots(figsize=(12, 16))
     imp.importances_mean.plot(kind='barh', ax=ax)
-    plt.title('Permutation Importances', fontsize=14, fontweight='bold')
+    plt.title('Sklearn Permutation Importances', fontsize=14,
+              fontweight='bold')
     plt.xlabel(ml_name, fontsize=12)
 
     plt.tight_layout()
@@ -180,7 +183,8 @@ def make_pdp_interpretation(dataset, column_names, training_set, model):
     info_global = st.button("How it is calculated")
 
 
-def make_shap_interpretation(model, training_set, column_names, ml_name):
+def make_shap_interpretation(model, training_set, column_names, ml_name,
+                             target, dataset, X, processor):
     """display shap's multi class values and force plots based on
     personal id selection"""
     # Summary plot
@@ -199,30 +203,72 @@ def make_shap_interpretation(model, training_set, column_names, ml_name):
     st.markdown("#### Local Interpretation")
     info_local = st.button("How this works")
     # Force plot
-    """>>>>>>>>>ROBERT<<<<<<<<<"""
-    """ADD FORCE PLOT CODE HERE"""
-    """>>>>>>>>>ROBERT<<<<<<<<<"""
+    slider_idx = st.selectbox('Personal ID of Guest', X.index)
+    row_p = X.loc[[slider_idx]]
+    row = processor.transform(row_p)
+    explainer_force = shap.TreeExplainer(model)
+    shap_values_force = explainer_force.shap_values(row)
 
-    """>>>>>>>>>ROBERT<<<<<<<<<"""
-    """ADD FORCE PLOT CODE HERE"""
-    """>>>>>>>>>ROBERT<<<<<<<<<"""
+    class_list = list(dataset['Target Exit Destination'].value_counts().index)
+    target_value = st.selectbox(
+        "Choose the class to plot", class_list
+    )
+    shap.initjs()
+    if target_value == 'Unknown/Other':
+        shap.force_plot(
+            base_value=explainer_force.expected_value[0],
+            shap_values=shap_values_force[0],
+            features=row,
+            feature_names=column_names,
+            link='logit'
+        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+    elif target_value == 'Permanent Exit':
+        shap.force_plot(
+            base_value=explainer_force.expected_value[1],
+            shap_values=shap_values_force[1],
+            features=row,
+            feature_names=column_names,
+            link='logit'
+        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+    elif target_value == 'Emergency Shelter':
+        shap.force_plot(
+            base_value=explainer_force.expected_value[2],
+            shap_values=shap_values_force[2],
+            features=row,
+            feature_names=column_names,
+            link='logit'
+        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+    elif target_value == 'Temporary Exit':
+        shap.force_plot(
+            base_value=explainer_force.expected_value[3],
+            shap_values=shap_values_force[3],
+            features=row,
+            feature_names=column_names,
+            link='logit'
+        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+    elif target_value == 'Transitional Housing':
+        shap.force_plot(
+            base_value=explainer_force.expected_value[4],
+            shap_values=shap_values_force[4],
+            features=row,
+            feature_names=column_names,
+            link='logit'
+        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+    st.pyplot()
 
-    """>>>>>>>>>ROBERT<<<<<<<<<"""
-    """ADD FORCE PLOT CODE HERE"""
-    """>>>>>>>>>ROBERT<<<<<<<<<"""
 
 def main():
     # CSV File Upload
-    uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type="csv")
+    csv = '/mnt/c/Users/Lester/documents/code/labs/family-promise-spokane-ds-b/visuals/All_data_with_exits_cleaned_demo_v2.csv'
+    uploaded_file = csv
     X, y, df, target_cols = upload_data(uploaded_file)
 
     # Split Data
     X_train, X_test, X_val, y_train, y_test, y_val = split_data(X, y)
 
     # Process Training Data
-    X_train, X_test, X_val, features, column_names = process_data(X_train,
-                                                                  X_test,
-                                                                  X_val, X)
+    X_train, X_test, X_val, features, column_names, processor = process_data(
+        X_train, X_test, X_val, X)
 
     # Model Selection
     ml_name = st.sidebar.selectbox(
@@ -275,10 +321,8 @@ def main():
             make_pdp_interpretation(df, column_names, X_test, model)
         elif framework == "SHAP":
             # To display shap summary and force plots
-            make_shap_interpretation(model, X_test, column_names, ml_name)
-                """^^^^^^^^^ROBERT^^^^^^^^"""
-                """FUNCTION IS CALLED HERE"""
-                """^^^^^^^^^ROBERT^^^^^^^^"""
+            make_shap_interpretation(model, X_test, column_names, ml_name,
+                                     y_test, df, X, processor)
     elif sets == "Validation 20%":
         pred = make_prediction(X_val, model)
         make_class_metrics(y_val, pred, X_val, model, ml_name)
@@ -287,10 +331,8 @@ def main():
         elif framework == "PDP":
             make_pdp_interpretation(df, column_names, X_val, model)
         elif framework == "SHAP":
-            make_shap_interpretation(model, X_val, column_names, ml_name)
-                """^^^^^^^^^ROBERT^^^^^^^^"""
-                """FUNCTION IS CALLED HERE"""
-                """^^^^^^^^^ROBERT^^^^^^^^"""
+            make_shap_interpretation(model, X_val, column_names, ml_name,
+                                     y_val, df, X, processor)
 
 
 if __name__ == "__main__":
