@@ -93,15 +93,15 @@ source = enrolledDataList[featureOption]
 
 # Interactive Bar chart (Histogram)  of Population during Enrollment Range
 if st.checkbox('Show Basic Enrollment Stats'):    
-    selection = alt.selection_multi(fields=["Gender"], bind="legend")
+    selection2 = alt.selection_multi(fields=["Gender"], bind="legend")
 
     populationBarChart = alt.Chart(source).mark_bar(size=5).encode(
         alt.X("Current Age", title = "Guest Current Age"),
         alt.Y('count()',title = "Guest Count", stack = None),
         color="Gender",
-        opacity=alt.condition(selection, alt.value(1), alt.value(0.2))
+        opacity=alt.condition(selection2, alt.value(1), alt.value(0.2))
     ).add_selection(
-        selection
+        selection2
     ).properties(
         width=550
     ).configure_axis(
