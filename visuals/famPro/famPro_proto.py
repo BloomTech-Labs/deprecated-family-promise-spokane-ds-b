@@ -8,33 +8,17 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import df_cleaner
 
-# st.title("FAMPro")
+from datetime import datetime
+
 """ # FAMPro
     ##### F`amily Promise`   A`nalytics`   M`ode`    Pro`totype`
 """
 
 
-# file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-a/main/All_data_with_exits.csv"
-file = "/Users/kellycho/Desktop/Repos/family-promise-spokane-ds-b/visuals/famPro/cleanedData02.csv"
+file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/ergVizExitVariable/visuals/famPro/cleanedData02.csv"
 df = pd.read_csv(file, parse_dates=["Enroll Date", "Exit Date"])
 
 
-
-# cleaner = df_cleaner.Cleaner()
-# renamed_df = cleaner.renameColumns(df)
-# new_df = cleaner.set_dtypes(renamed_df)
-# cleaned_df = cleaner.recategorization(new_df)
-
-# st.write(df.head())
-
-# Seaborn viz
-
-
-# fig = sns.displot(df, x="Current Age",  hue="Gender", bins=20, multiple = "stack")
-
-# st.pyplot(fig)
-
-from datetime import datetime
 
 minDate = list(df["Enroll Date"].sort_values(axis=0, ascending=True).head())[0].to_pydatetime()
 maxDate = list(df["Enroll Date"].sort_values(axis=0, ascending=True).tail())[-1].to_pydatetime()
@@ -57,11 +41,6 @@ st.write("Analyzing Range: ", start_time, "to ", end_time)
 
 
 
-
-
-
-
-
 # altair viz
 import altair as alt
 
@@ -71,27 +50,13 @@ con_noExit = df["Exit Date"].isnull() == True
 
 con_dtRange = (df["Enroll Date"] >= start_time) & (df["Enroll Date"] <= end_time)
 currEnrolled_df = df[con_dtRange]
-# con_dtGreater2017 = cleaned_df["Enroll Date"] > pd.Timestamp(2019,12, 31)
-# cleaned_df[con_dtGreater2017].shape
 
-
-
-# Non-Interactive chart
-# test = alt.Chart(source).mark_bar().encode(
-#     alt.Y("Current Age", title = "Current Guest Age"),
-#     alt.X('count()'),
-#     color="Gender",
-   
-# )
 
 # 3 different dfs
 # total pop
 # head of Households
 # dependents
 
-# Currently enrolled 
-# con_noExit = df["Exit Date"].isnull() == True
-# currEnrolled_df = df[con_noExit]
 
 # head of Households from currEnrolled
 con_Hoh = currEnrolled_df["Relationship to HoH"] == "Self" #or cleaned_df["Relationship to HoH"] == "Significant Other (Non-Married)"
@@ -103,32 +68,72 @@ dep_cleaned_df = currEnrolled_df[con_dep]
 
 enrolledDataList = {"All Guests Enrolled": currEnrolled_df, 
                     "Heads of Household Enrolled": hoh_cleaned_df,
-                    "Dependents Enrolled": dep_cleaned_df
+                    "Dependents Enrolled": dep_cleaned_df,
 }
 
 featureOption = st.sidebar.selectbox("Feature ", 
     list(enrolledDataList.keys()))
 
+
+exitComparisonVariables = {
+    "Days Enrolled in Project" : "Days Enrolled in Project",
+    "Race": "Race", 
+    "Bed Nights During Report Period": "Bed Nights During Report Period",
+    "Age at Enrollment" : "Age at Enrollment"
+}
+
+comparisonVariableOption = st.sidebar.selectbox("Comparision Variable ", 
+    list(exitComparisonVariables.keys()))
+
+
+
 "Viewing: ", featureOption
-
-# st.altair_chart(test)
-
-# source =currEnrolled_df
 
 source = enrolledDataList[featureOption]
 
+# Interactive Bar chart (Histogram)  of Population during Enrollment Range
+if st.checkbox('Show Basic Enrollment Stats'):    
+    selection2 = alt.selection_multi(fields=["Gender"], bind="legend")
 
-# Interactive test
+    populationBarChart = alt.Chart(source).mark_bar(size=5).encode(
+        alt.X("Current Age", title = "Guest Current Age"),
+        alt.Y('count()',title = "Guest Count", stack = None),
+        color="Gender",
+        opacity=alt.condition(selection2, alt.value(1), alt.value(0.2))
+    ).add_selection(
+        selection2
+    ).properties(
+        width=550
+    ).configure_axis(
+        grid=False
+    ).configure_view(
+        strokeWidth=0
+    ).interactive()
+
+    st.altair_chart(populationBarChart)
+
+# Interactive Exit Comparison Bar Chart
+
+
 selection = alt.selection_multi(fields=["Gender"], bind="legend")
 
-test2 = alt.Chart(source).mark_bar().encode(
-    alt.X("Current Age", title = "Current Guest Age"),
-    alt.Y('count()', stack = None),
+exitComparisonFacetBarChart = alt.Chart(source).mark_bar(size=3).encode(
+    alt.X("Household ID", title = "Households Enrolled",axis=alt.Axis(labels=False)), 
+    alt.Y(comparisonVariableOption,  stack = None),
     color="Gender",
     opacity=alt.condition(selection, alt.value(1), alt.value(0.2))
 ).add_selection(
     selection
-).properties(width=550).interactive()
+).properties(
+    width=200,
+    height=200
+).facet(
+    column="Descriptive Viz Category"
+).configure_axis(
+    grid=False
+).configure_view(
+    strokeWidth=0
+).interactive()
 
-st.altair_chart(test2)
 
+st.altair_chart(exitComparisonFacetBarChart)
