@@ -68,33 +68,72 @@ dep_cleaned_df = currEnrolled_df[con_dep]
 
 enrolledDataList = {"All Guests Enrolled": currEnrolled_df, 
                     "Heads of Household Enrolled": hoh_cleaned_df,
-                    "Dependents Enrolled": dep_cleaned_df
+                    "Dependents Enrolled": dep_cleaned_df,
 }
 
 featureOption = st.sidebar.selectbox("Feature ", 
     list(enrolledDataList.keys()))
+
+
+exitComparisonVariables = {
+    "Days Enrolled in Project" : "Days Enrolled in Project",
+    "Race": "Race", 
+    "Bed Nights During Report Period": "Bed Nights During Report Period",
+    "Age at Enrollment" : "Age at Enrollment"
+}
+
+comparisonVariableOption = st.sidebar.selectbox("Comparision Variable ", 
+    list(exitComparisonVariables.keys()))
+
+
 
 "Viewing: ", featureOption
 
 source = enrolledDataList[featureOption]
 
 # Interactive Bar chart (Histogram)  of Population during Enrollment Range
+if st.checkbox('Show Basic Enrollment Stats'):    
+    selection = alt.selection_multi(fields=["Gender"], bind="legend")
+
+    populationBarChart = alt.Chart(source).mark_bar(size=5).encode(
+        alt.X("Current Age", title = "Guest Current Age"),
+        alt.Y('count()',title = "Guest Count", stack = None),
+        color="Gender",
+        opacity=alt.condition(selection, alt.value(1), alt.value(0.2))
+    ).add_selection(
+        selection
+    ).properties(
+        width=550
+    ).configure_axis(
+        grid=False
+    ).configure_view(
+        strokeWidth=0
+    ).interactive()
+
+    st.altair_chart(populationBarChart)
+
+# Interactive Exit Comparison Bar Chart
+
+
 selection = alt.selection_multi(fields=["Gender"], bind="legend")
 
-populationBarChart = alt.Chart(source).mark_bar(size=5).encode(
-    alt.X("Current Age", title = "Guest Current Age"),
-    alt.Y('count()',title = "Guest Count", stack = None),
+exitComparisonFacetBarChart = alt.Chart(source).mark_bar(size=3).encode(
+    alt.X("Household ID", title = "Households Enrolled",axis=alt.Axis(labels=False)), 
+    alt.Y(comparisonVariableOption,  stack = None),
     color="Gender",
     opacity=alt.condition(selection, alt.value(1), alt.value(0.2))
 ).add_selection(
     selection
 ).properties(
-    width=550
+    width=200,
+    height=200
+).facet(
+    column="Descriptive Viz Category"
 ).configure_axis(
     grid=False
 ).configure_view(
     strokeWidth=0
 ).interactive()
 
-st.altair_chart(populationBarChart)
 
+st.altair_chart(exitComparisonFacetBarChart)
