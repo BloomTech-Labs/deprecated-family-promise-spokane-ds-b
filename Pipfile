@@ -27,6 +27,7 @@ PDPbox = "*"
 xgboost = "*"
 catboost = "*"
 eli5 = "*"
+altair = "*"
 
 [requires]
 python_version = "3"
