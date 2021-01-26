@@ -81,14 +81,20 @@ source = enrolledDataList[featureOption]
 # Interactive Bar chart (Histogram)  of Population during Enrollment Range
 selection = alt.selection_multi(fields=["Gender"], bind="legend")
 
-populationBarChart = alt.Chart(source).mark_bar().encode(
-    alt.X("Current Age", title = "Current Guest Age"),
-    alt.Y('count()', stack = None),
+populationBarChart = alt.Chart(source).mark_bar(size=5).encode(
+    alt.X("Current Age", title = "Guest Current Age"),
+    alt.Y('count()',title = "Guest Count", stack = None),
     color="Gender",
     opacity=alt.condition(selection, alt.value(1), alt.value(0.2))
 ).add_selection(
     selection
-).properties(width=550).interactive()
+).properties(
+    width=550
+).configure_axis(
+    grid=False
+).configure_view(
+    strokeWidth=0
+).interactive()
 
 st.altair_chart(populationBarChart)
 
