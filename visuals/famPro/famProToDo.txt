@@ -1,10 +1,11 @@
 
 
 Todo - 
-    move date slider to center panel
+    move date slider to center panel?
     perhaps summary stats for total occupancy, hoh, dependents
     output list of households within date range
-    Prototype viz of exit stats in notebooks
+    Newgrouping for exit outcome: Perm, Non-Perm, Unk
+    #Prototype viz of exit stats in notebooks
         - transfer viz to dashboard file
     
     come up with 4 basic charts - per houseHold
