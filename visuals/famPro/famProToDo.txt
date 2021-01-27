@@ -1,0 +1,19 @@
+
+
+Todo - 
+    move date slider to center panel?
+    perhaps summary stats for total occupancy, hoh, dependents
+    # New grouping for exit outcome: Perm, Non-Perm, Unk
+    #Prototype viz of exit stats in notebooks
+    #  - transfer viz to dashboard file
+    
+    
+    output list of households within date range
+
+    make chart/table with:
+        mean Days Enrolled per status group
+        Race % breakdown per status group
+        Mean Bed nights per status group
+        mean caseMembers per status group??
+        mean Age at Enrollement per status group
+        Gender % breakdown Hoh per status group
