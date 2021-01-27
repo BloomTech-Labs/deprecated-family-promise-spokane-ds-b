@@ -15,7 +15,8 @@ from datetime import datetime
 """
 
 
-file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/ergVizExitVariable/visuals/famPro/cleanedData02.csv"
+# file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/ergVizExitVariable/visuals/famPro/cleanedData02.csv"
+file = "cleanedData02.csv"
 df = pd.read_csv(file, parse_dates=["Enroll Date", "Exit Date"])
 
 
@@ -71,7 +72,7 @@ enrolledDataList = {"All Guests Enrolled": currEnrolled_df,
                     "Dependents Enrolled": dep_cleaned_df,
 }
 
-featureOption = st.sidebar.selectbox("Feature ", 
+featureOption = st.sidebar.selectbox("Guest Type Filter ", 
     list(enrolledDataList.keys()))
 
 
@@ -79,7 +80,9 @@ exitComparisonVariables = {
     "Days Enrolled in Project" : "Days Enrolled in Project",
     "Race": "Race", 
     "Bed Nights During Report Period": "Bed Nights During Report Period",
-    "Age at Enrollment" : "Age at Enrollment"
+    "Age at Enrollment" : "Age at Enrollment",
+    "CaseMembers": "Case Members",
+    "CaseAdults" : "CaseAdults"
 }
 
 comparisonVariableOption = st.sidebar.selectbox("Comparision Variable ", 
@@ -118,7 +121,7 @@ if st.checkbox('Show Basic Enrollment Stats'):
 selection = alt.selection_multi(fields=["Gender"], bind="legend")
 
 exitComparisonFacetBarChart = alt.Chart(source).mark_bar(size=3).encode(
-    alt.X("Household ID", title = "Households Enrolled",axis=alt.Axis(labels=False)), 
+    alt.X("Household ID", title = "Households Enrolled",axis=alt.Axis(labels=False)),
     alt.Y(comparisonVariableOption,  stack = None),
     color="Gender",
     opacity=alt.condition(selection, alt.value(1), alt.value(0.2))
