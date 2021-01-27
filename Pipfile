@@ -24,6 +24,9 @@ psycopg2-binary = "*"
 streamlit = "*"
 shap = "*"
 pdpbox = "*"
+catboost = "*"
+awesome-streamlit = "*"
+pyowm = "*"
 
 [requires]
 python_version = "3"
