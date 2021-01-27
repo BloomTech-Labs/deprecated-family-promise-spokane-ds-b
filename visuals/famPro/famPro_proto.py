@@ -121,7 +121,7 @@ if st.checkbox('Show Basic Enrollment Stats'):
 selection = alt.selection_multi(fields=["Gender"], bind="legend")
 
 exitComparisonFacetBarChart = alt.Chart(source).mark_bar(size=3).encode(
-    alt.X("Household ID", title = featureOption,axis=alt.Axis(labels=False), 
+    alt.X("Household ID", title = "Households Enrolled",axis=alt.Axis(labels=False)),
     alt.Y(comparisonVariableOption,  stack = None),
     color="Gender",
     opacity=alt.condition(selection, alt.value(1), alt.value(0.2))
@@ -132,8 +132,8 @@ exitComparisonFacetBarChart = alt.Chart(source).mark_bar(size=3).encode(
     height=200
 ).facet(
     column="Descriptive Viz Category"
-# ).configure_axis(
-#     grid=False
+).configure_axis(
+    grid=False
 ).configure_view(
     strokeWidth=0
 ).interactive()
