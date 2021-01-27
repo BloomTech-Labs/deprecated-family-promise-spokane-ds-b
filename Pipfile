@@ -9,7 +9,7 @@ pytest = "*"
 
 [packages]
 fastapi = "*"
-sqlalchemy = "*"
+SQLAlchemy = "*"
 numpy = "*"
 pandas = "*"
 jupyter = "*"
@@ -25,7 +25,11 @@ streamlit = "*"
 eli5 = "*"
 xgboost = "*"
 shap = "*"
-pdpbox = "*"
+PDPbox = "*"
+xgboost = "*"
+catboost = "*"
+eli5 = "*"
+altair = "*"
 
 [requires]
 python_version = "3"
