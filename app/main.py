@@ -9,17 +9,14 @@ This is our FastAPI DS API. to use the current api send a post request to
 /getdata endpoint with the member_id. a predicted exit destination along with 
 top features will show in a JSON format. Below is an example on how to use it 
 interactively. 
-
 To use these interactive docs:
 - Click on an endpoint below
 - Click the **Try it out** button
 - Edit the Request body or any parameters
 - Click the **Execute** button
 - Scroll down to see the Server response Code & Details
-
 To edit description after some endpoints has been added.
 Edit your app's title and description. See [https://fastapi.tiangolo.com/tutorial/metadata/](https://fastapi.tiangolo.com/tutorial/metadata/)
-
 """
 
 app = FastAPI(
