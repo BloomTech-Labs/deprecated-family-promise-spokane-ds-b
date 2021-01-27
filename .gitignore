@@ -1,4 +1,6 @@
 visuals/catboost_info
+pipfile.lock
+pipfile
 
 .DS_Store
 .vscode/
