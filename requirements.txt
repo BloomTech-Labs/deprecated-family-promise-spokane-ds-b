@@ -5,7 +5,7 @@ argcomplete==1.12.2
 argon2-cffi==20.1.0
 astor==0.8.1
 async-generator==1.10
-awesome-streamlit==*
+awesome-streamlit= "*"
 attrs==20.3.0
 Babel==2.9.0
 backcall==0.2.0
