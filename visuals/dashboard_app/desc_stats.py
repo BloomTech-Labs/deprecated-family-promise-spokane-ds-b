@@ -19,7 +19,7 @@ def write():
         return df
         
     # file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/main/visuals/dashboard_app/cleanedData02.csv"
-    file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/egSummaryTableViz/visuals/dashboard_app/cleanedData02.csv"
+    file = 'cleanedData02.csv'
 
     
     df = loadDataFile(file)

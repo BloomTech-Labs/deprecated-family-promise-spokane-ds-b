@@ -39,11 +39,6 @@ plt.style.use('classic')
 # xgb_model = joblib.load('visuals/XGBoost_Model.joblib')
 # forest_model = joblib.load('visuals/Forest_Model.joblib')
 
-# Title and Subheader
-st.title("Machine Learning Interpretation")
-st.subheader("Family Promise of Spokane")
-
-
 def upload_data(uploaded_file):
     """To process the csv file in order to return training data"""
     if uploaded_file is not None:
@@ -258,8 +253,11 @@ def make_shap_interpretation(model, training_set, column_names, ml_name,
 
 
 def write():
+    # Title and Subheader
+    st.title("Machine Learning Interpretation")
+    st.subheader("Family Promise of Spokane")
     # CSV File Upload
-    csv = 'https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/main/visuals/dashboard_app/All_data_with_exits_cleaned_demo_v2%20(2).csv'
+    csv = 'ml_cleaned_data.csv'
     uploaded_file = csv
     X, y, df, target_cols = upload_data(uploaded_file)
 
