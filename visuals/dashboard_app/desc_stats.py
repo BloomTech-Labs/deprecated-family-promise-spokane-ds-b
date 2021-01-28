@@ -21,9 +21,12 @@ def write():
     st.title("Descriptive Statistics")
 
 
-
+    # @st.cache
     minDate = list(df["Enroll Date"].sort_values(axis=0, ascending=True).head())[0].to_pydatetime()
+    
     maxDate = list(df["Enroll Date"].sort_values(axis=0, ascending=True).tail())[-1].to_pydatetime()
+    startVal = list(df["Enroll Date"].sort_values(axis=0, ascending=True))[200].to_pydatetime()
+
     """
 
 
@@ -36,6 +39,7 @@ def write():
     end_time = st.sidebar.slider(label = "Date Range End",
                 min_value=minDate,
                 max_value=maxDate,
+                value= startVal,
                 format="MM/DD/YY")
 
 
@@ -142,3 +146,6 @@ def write():
 
 
     st.altair_chart(exitComparisonFacetBarChart)
+
+
+    
