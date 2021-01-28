@@ -97,16 +97,16 @@ def write():
                                                     list(exitComparisonVariables.keys()))
 
 
-    "Viewing: ", featureOption
 
     source = enrolledDataList[featureOption]
 
     # Interactive Bar chart (Histogram)  of Population during Enrollment Range
-    
+
     @st.cache(suppress_st_warning=True)
     def drawPopBarchart(popChart):
         st.altair_chart(popChart)
 
+    st.write("Viewing: ", featureOption)
     if st.checkbox('Show Basic Enrollment Stats', value=True):    
         selection2 = alt.selection_multi(fields=["Gender"], bind="legend")
 
@@ -154,5 +154,7 @@ def write():
 
     drawExitComparisonFacetChart(exitComparisonFacetBarChart)
 
-
+    # Basic Non-Interactive Table for Exit Outcome value counts
+    baseChart = pd.DataFrame(source["Descriptive Viz Category"].value_counts()).T
+    st.write(baseChart)
     
