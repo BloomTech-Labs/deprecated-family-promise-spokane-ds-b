@@ -12,14 +12,16 @@ from datetime import datetime
 
 
 def write():
-# file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/ergVizExitVariable/visuals/famPro/cleanedData02.csv"
     
     @st.cache
     def loadDataFile(filePath):
         df = pd.read_csv(filePath, parse_dates=["Enroll Date", "Exit Date"])
         return df
         
-    file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/main/visuals/dashboard_app/cleanedData02.csv"
+    # file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/main/visuals/dashboard_app/cleanedData02.csv"
+    file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/egSummaryTableViz/visuals/dashboard_app/cleanedData02.csv"
+
+    
     df = loadDataFile(file)
     st.title("Descriptive Statistics")
 
@@ -146,7 +148,7 @@ def write():
         width=200,
         height=200
     ).facet(
-        column="Descriptive Viz Category"
+        column="Exit Outcomes"
     ).configure_view(
         strokeWidth=0
     ).interactive()
@@ -155,6 +157,6 @@ def write():
     drawExitComparisonFacetChart(exitComparisonFacetBarChart)
 
     # Basic Non-Interactive Table for Exit Outcome value counts
-    baseChart = pd.DataFrame(source["Descriptive Viz Category"].value_counts()).T
+    baseChart = pd.DataFrame(source["Exit Outcomes"].value_counts()).T
     st.write(baseChart)
     
