@@ -27,6 +27,7 @@ import shap
 
 # images
 from PIL import Image
+import requests
 
 # Data Analysis Imports
 import df_cleaner
@@ -47,7 +48,7 @@ PAGES = {
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Title and image 
-img = Image.open("/mnt/c/Users/USER/Documents/GitHub/familypromise/family-promise-spokane-ds-b/visuals/famPro/Assets/fp_logo.png")
+img = Image.open(requests.get("https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/rgupdate/visuals/dashboard_app/Assets/fp_logo.png", stream=True).raw)
 st.image(img, width= 900)
 
 

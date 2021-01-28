@@ -259,7 +259,7 @@ def make_shap_interpretation(model, training_set, column_names, ml_name,
 
 def write():
     # CSV File Upload
-    csv = '/mnt/c/Users/USER/Documents/GitHub/familypromise/family-promise-spokane-ds-b/visuals/famPro/All_data_with_exits_cleaned_demo_v2 (2).csv'
+    csv = 'https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/main/visuals/dashboard_app/All_data_with_exits_cleaned_demo_v2%20(2).csv'
     uploaded_file = csv
     X, y, df, target_cols = upload_data(uploaded_file)
 
