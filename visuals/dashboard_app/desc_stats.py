@@ -16,9 +16,10 @@ from datetime import datetime
 
 def write():
 # file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/ergVizExitVariable/visuals/famPro/cleanedData02.csv"
-    file = "cleanedData02.csv"
+    file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/main/visuals/dashboard_app/cleanedData02.csv"
     df = pd.read_csv(file, parse_dates=["Enroll Date", "Exit Date"])
     st.title("Descriptive Statistics")
+
 
 
     minDate = list(df["Enroll Date"].sort_values(axis=0, ascending=True).head())[0].to_pydatetime()

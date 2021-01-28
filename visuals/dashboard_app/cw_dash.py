@@ -48,7 +48,7 @@ PAGES = {
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Title and image 
-img = Image.open(requests.get("https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/rgupdate/visuals/dashboard_app/Assets/fp_logo.png", stream=True).raw)
+img = Image.open(requests.get("https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/main/visuals/dashboard_app/Assets/fp_logo.png", stream=True).raw)
 st.image(img, width= 900)
 
 
