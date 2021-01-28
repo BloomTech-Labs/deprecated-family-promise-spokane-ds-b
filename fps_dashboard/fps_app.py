@@ -1,5 +1,6 @@
 # Setup:
 import awesome_streamlit as ast
+import os
 import streamlit as st
 
 # Images:
@@ -21,7 +22,9 @@ PAGES = {
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Title and image
-img = Image.open(requests.get("https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/main/visuals/dashboard_app/Assets/fp_logo.png", stream=True).raw)
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+my_file = os.path.join(THIS_FOLDER, "../fps_dashboard/Assets/fp_logo.png")
+img = Image.open(my_file)
 st.image(img, width=900)
 
 
