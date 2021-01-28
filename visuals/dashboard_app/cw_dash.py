@@ -33,14 +33,14 @@ import df_cleaner
 
 # Page Imports
 import desc_stats
-import lg_streamlit_app
+import machine_learning
 import home
 
 
 PAGES = {
     "Home" : home,
     "Descriptive Statistics" : desc_stats,
-    "Machine Learning" : lg_streamlit_app,
+    "Machine Learning" : machine_learning,
 }
 
 
