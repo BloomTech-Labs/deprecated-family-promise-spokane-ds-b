@@ -2,10 +2,10 @@ import streamlit as st
 import awesome_streamlit as ast
 
 # Weather API library
-import pyowm
-from pyowm import OWM
-from pyowm.utils import config
-from pyowm.utils import timestamps
+# import pyowm
+# from pyowm import OWM
+# from pyowm.utils import config
+# from pyowm.utils import timestamps
 
 # Weather API to display temperature and overall conditions. To be used in the future for homepage text
 
