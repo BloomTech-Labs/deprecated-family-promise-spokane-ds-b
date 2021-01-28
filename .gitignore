@@ -1,4 +1,6 @@
 visuals/catboost_info
+catboost_info
+notebooks\catboost_info
 pipfile.lock
 pipfile
 Pipfile.txt
