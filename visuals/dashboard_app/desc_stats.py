@@ -10,18 +10,21 @@ import df_cleaner
 
 from datetime import datetime
 
-""" # FAMPro
-    ##### F`amily Promise`   A`nalytics`   M`ode`    Pro`totype`
-"""
 
 def write():
 # file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/ergVizExitVariable/visuals/famPro/cleanedData02.csv"
+    
+    @st.cache
+    def loadDataFile(filePath):
+        df = pd.read_csv(filePath, parse_dates=["Enroll Date", "Exit Date"])
+        return df
+        
     file = "https://raw.githubusercontent.com/Lambda-School-Labs/family-promise-spokane-ds-b/main/visuals/dashboard_app/cleanedData02.csv"
-    df = pd.read_csv(file, parse_dates=["Enroll Date", "Exit Date"])
+    df = loadDataFile(file)
     st.title("Descriptive Statistics")
 
 
-    # @st.cache
+   
     minDate = list(df["Enroll Date"].sort_values(axis=0, ascending=True).head())[0].to_pydatetime()
     
     maxDate = list(df["Enroll Date"].sort_values(axis=0, ascending=True).tail())[-1].to_pydatetime()
@@ -93,13 +96,17 @@ def write():
     comparisonVariableOption = st.sidebar.selectbox("Comparision Variable ", 
                                                     list(exitComparisonVariables.keys()))
 
-    trial = exitComparisonVariables[comparisonVariableOption]
 
     "Viewing: ", featureOption
 
     source = enrolledDataList[featureOption]
 
     # Interactive Bar chart (Histogram)  of Population during Enrollment Range
+    
+    @st.cache(suppress_st_warning=True)
+    def drawPopBarchart(popChart):
+        st.altair_chart(popChart)
+
     if st.checkbox('Show Basic Enrollment Stats', value=True):    
         selection2 = alt.selection_multi(fields=["Gender"], bind="legend")
 
@@ -118,11 +125,13 @@ def write():
             strokeWidth=0
         ).interactive()
 
-        st.altair_chart(populationBarChart)
+        drawPopBarchart(populationBarChart)
     
 
-    # # Interactive Exit Comparison Bar Chart
-
+    # # Interactive Exit Comparison Bar Chart using Facet
+   
+    def drawExitComparisonFacetChart(exitFacetChart):
+        st.altair_chart(exitFacetChart)
 
     selection = alt.selection_multi(fields=["Gender"], bind="legend")
 
@@ -138,14 +147,12 @@ def write():
         height=200
     ).facet(
         column="Descriptive Viz Category"
-    # ).configure_axis(
-    #     grid=False
     ).configure_view(
         strokeWidth=0
     ).interactive()
 
 
-    st.altair_chart(exitComparisonFacetBarChart)
+    drawExitComparisonFacetChart(exitComparisonFacetBarChart)
 
 
     
