@@ -8,19 +8,25 @@ You can find the deployed project at [Family Promise of Spokane](https://family-
 The Family Promise of Spokane  Organization is a US-based nonprofit organization based in Spokane, WA. They are an organization that helps homeless families as well as preventing families from becoming homeless. They provide shelter for families as well as rental assitance. For the full description visit their website [Family Promise of Spokane](https://www.familypromiseofspokane.org/)
 # Contributors
 
-| [Kristine Wang](https://github.com/KristineYW) | [Tyler Etheridge](https://github.com/tyleretheridge) | [Santiago Berniz](https://github.com/sberniz/) | [Leslie Rodriguez](https://github.com/thereactgirl) |
-| :---: | :---: | :---: | :---: | 
-| [<img src="https://avatars0.githubusercontent.com/u/63246056?s=400&u=a10524916b756eb26132d0803bec3cbe62ede1ef&v=4" width = "200" />](https://github.com/KristineYW) | [<img src="https://avatars3.githubusercontent.com/u/61953470?s=400&u=8f8538f4d10dcb45b9179eb6990d1ef9c1aadc8d&v=4" width = "200" />](https://github.com/tyleretheridge) | [<img src="https://avatars3.githubusercontent.com/u/6207914?s=460&u=8bfaa068f7942170423371ff10e8f04f09f41e81&v=4" width = "200" />](https://github.com/sberniz/) | [<img src="https://avatars3.githubusercontent.com/u/46256764?s=400&u=337301ad07625f6977ed520ff7092ae54bb0852f&v=4" width = "200" />](https://github.com/thereactgirl) |
-| TPL | Data Scientist | Data Scientist | Web Developer | Web Developer | 
-|[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/KristineYW) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tyleretheridge) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/sberniz/) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/thereactgirl) |
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/kristine-wang-ds/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/tylerjetheridge/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/santiago-berniz/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/thereactgirl/) |          
-
-| [Emily Huntwork](https://github.com/Ehuntwork) | [Abdi Mo](https://github.com/abdimohamud) | [Isaiah Fowler](https://github.com/idongessien) |
-| :---: | :---: | :---: |  
-| [<img src="https://avatars1.githubusercontent.com/u/27293120?s=400&u=e6c0fc75189b75dea5233e02562784ed1cfa2faf&v=4" width = "200" />](https://github.com/Ehuntwork) | [<img src="https://avatars1.githubusercontent.com/u/65041807?s=400&u=2ff3514545d906fe2b734fed79c7f8d640b58ae6&v=4" width = "200" />](https://github.com/abdimohamud) | [<img src="https://avatars1.githubusercontent.com/u/66272034?s=400&u=db133631ead14125bb0d5e9515932985c6293448&v=4" width = "200" />](https://github.com/isaiah-j) | 
-| Web Developer | Web Developer | Web Developer | 
-|[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Ehuntwork) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/abdimohamud) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/isaiah-j) | 
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/emily-huntwork/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/abdinajib-mohamud/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/isaiah-fowler/) |              
+| [Dominick Bruno]() | [Robert Giuffre](https://github.com/rgiuffre90) | [Sara Cearc](https://github.com/cearac-sara) |
+| :---: | :---: | :---: | 
+| [<img src="https://ca.slack-edge.com/ESZCHB482-W012JHQU86N-44142d528214-512" width = "200" />]() | [<img src="https://ca.slack-edge.com/ESZCHB482-W017LT9K3T7-g2715a831019-512" width = "200" />]((https://github.com/rgiuffre90) | [<https://avatars.githubusercontent.com/u/67298892?s=460&u=2c4c90762496cd094b55c68e75230fb0d13217b5&v=4" width = "200" />](https://github.com/cearac-sara) | 
+| TPL | Data Scientist | Web Developer |  
+|[<img src="https://github.com/favicon.ico" width="15"> ]() | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/rgiuffre90) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/cearac-sara) | 
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/dbruno93/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/robert-giuffre/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/sara-cearc/) |
+| [Lester Gomez](https://github.com/machine-17) | [Erle Granger II](https://github.com/ilEnzio) | [Mudesir Suleyman](https://github.com/mudesir) |
+| :---: | :---: | :---: | 
+| [<img src="https://avatars.githubusercontent.com/u/68140323?s=400&u=249894a3f4684124a2fe6b050fba8ab255af842b&v=4" width = "200" />](https://github.com/machine-17) | [<img src="https://avatars.githubusercontent.com/u/57765538?s=400&u=cf39358defd18714d43f7a9ab0d74b02df559a55&v=4" width = "200" />](https://github.com/ilEnzio) | [<https://ca.slack-edge.com/ESZCHB482-W012R4C0T44-d512b3c6174c-512" width = "200" />](https://github.com/mudesir) | 
+| Data Scientist | Data Scientist | Data Scientist |  
+|[<img src="https://github.com/favicon.ico" width="15"> ]((https://github.com/machine-17) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ilEnzio) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/mudesir) | [<img src="https://github.com/favicon.ico" width="15"> ]() |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/lg17/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/erle-granger-a7b231/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/mudesir-suleyman-a0b891190/) |           
+| [Suzanne Cabral](https://github.com/suzannecabral) | [Andrew Muto]() | [Breson Whorely]() |
+| :---: | :---: | :---: | 
+| [<img src="https://avatars.githubusercontent.com/u/25539417?s=400&u=e48fba22ff44e3b615a393ca394ed864ef41e141&v=4" width = "200" />]() | [<img src="https://ca.slack-edge.com/ESZCHB482-W012R4ECJ1J-bbb0dcc461ae-512" width = "200" />]() | [<https://https://ca.slack-edge.com/ESZCHB482-W017UE8LQP6-c55573e09a38-512" width = "200" />]() | 
+| Web Developer | Web Developer | Web Developer |  
+|[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/suzannecabral) | [<img src="https://github.com/favicon.ico" width="15"> ]() | [<img src="https://github.com/favicon.ico" width="15"> ]() | 
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/suzanne-cabral/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ]() | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/brenson-w/) |
+             
 
 <br>          
 
@@ -40,20 +46,18 @@ The Family Promise of Spokane  Organization is a US-based nonprofit organization
 
 
 # Deployed Product
-[Front End Dashboard](https://family-profile-styling-emily.d3hmwb1bmjh3u1.amplifyapp.com/) |
-[Data Science API](http://a-labs29-family-promise.eba-syir5yx3.us-east-1.elasticbeanstalk.com/) |
-[Back End API](https://family-pomise-spokane.herokuapp.com/) |
+[Data Science API](http://a-labs29-family-promise.eba-syir5yx3.us-east-1.elasticbeanstalk.com/) 
+
 
 # Linked Repositories
-[Family Promise of Spokane Back End](https://github.com/Lambda-School-Labs/family-promise-spokane-be-a) |
-[Family Promise of Spokane Data Science](https://github.com/Lambda-School-Labs/family-promise-spokane-ds-a) |
-[Family Promise of Spokane Front end](https://github.com/Lambda-School-Labs/family-promise-spokane-fe-a) 
+[Family Promise of Spokane Data Science](https://github.com/Lambda-School-Labs/family-promise-spokane-ds-b) 
+
 
 # Getting Started
 
 ### User Flows
 
-[Trello Board](https://trello.com/b/FyWvcZzY/family-promise-of-spokane)
+[Trello Board](https://trello.com/b/5J8xmgZo/labs30-family-promise-b)
 
 Our team is developing a digital intake form for families in Family Promise Shelter. This intake form is a replacement for the paper form currently being filled by guests of the shelter. All the Data is given by the guests. We have a multi-class random forest model that takes the guest data and predicts their exit destination. The possible Exit Destination are as follow. 
 - Permanent Exit
