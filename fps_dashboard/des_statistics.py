@@ -47,9 +47,9 @@ def write():
     currEnrolled_df = df[con_dtRange]
 
     # 3 different dfs
-    # total pop
-    # head of Households
-    # dependents
+    # - total pop
+    # - head of Households
+    # - dependents
 
     # head of Households from currEnrolled
     # or cleaned_df["Relationship to HoH"] == "Significant Other (Non-Married)"
@@ -134,5 +134,43 @@ def write():
     drawExitComparisonFacetChart(exitComparisonFacetBarChart)
 
     # Basic Non-Interactive Table for Exit Outcome value counts
-    baseChart = pd.DataFrame(source["Exit Outcomes"].value_counts()).T
-    st.write(baseChart)
+
+    # get Central Tendencies to further explain charts
+    def getCentralTendencies(df):
+        outcomeList = ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit']
+        Mean_Days_Enrolled = [] # create a list that will be come a series in the 
+                                # base df
+        Mean_BedNights_Enrolled = []
+        Mean_CaseMembers_Enrolled = []
+        Mean_Age_At_Enrollment = []
+
+
+        for outcome in outcomeList:
+
+            conTemp = df["Exit Outcomes"] == outcome
+
+            currentMean = df[conTemp]["Days Enrolled in Project"].mean()
+            Mean_Days_Enrolled.append(currentMean)
+
+            currBdNightsMean = df[conTemp]["Bed Nights During Report Period"].mean()
+            Mean_BedNights_Enrolled.append(currBdNightsMean)
+
+            currCsMemMean = df[conTemp]["CaseMembers"].mean()
+            Mean_CaseMembers_Enrolled.append(currCsMemMean)
+
+            currAgeAtEnMean = df[conTemp]["Age at Enrollment"].mean()
+            Mean_Age_At_Enrollment.append(currAgeAtEnMean)
+
+
+        return Mean_Days_Enrolled, Mean_BedNights_Enrolled, Mean_CaseMembers_Enrolled,\
+            Mean_Age_At_Enrollment
+
+
+    baseChart = pd.DataFrame(source["Exit Outcomes"].value_counts())
+    baseChart["Mean Days Enrolled"]= pd.Series(getCentralTendencies(source)[0], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
+    baseChart["Mean Bed Nights Enrolled"]= pd.Series(getCentralTendencies(source)[1], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
+    baseChart["Mean Case Members Enrolled"]= pd.Series(getCentralTendencies(source)[2], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
+    baseChart["Mean Age At Enrollment"]= pd.Series(getCentralTendencies(source)[3], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
+    
+    
+    st.write(baseChart.T)
