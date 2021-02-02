@@ -165,12 +165,16 @@ def write():
         return Mean_Days_Enrolled, Mean_BedNights_Enrolled, Mean_CaseMembers_Enrolled,\
             Mean_Age_At_Enrollment
 
-
+    # Add central tendencies (mean values) to basic table
     baseChart = pd.DataFrame(source["Exit Outcomes"].value_counts())
     baseChart["Mean Days Enrolled"]= pd.Series(getCentralTendencies(source)[0], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
     baseChart["Mean Bed Nights Enrolled"]= pd.Series(getCentralTendencies(source)[1], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
     baseChart["Mean Case Members Enrolled"]= pd.Series(getCentralTendencies(source)[2], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
     baseChart["Mean Age At Enrollment"]= pd.Series(getCentralTendencies(source)[3], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
     
-    
-    st.write(baseChart.T)
+    # rearrange column order
+    cols =[ 'NON-Permanent Exit', 'Permanent Exit', 'Unknown/Other']
+    baseChart02 = baseChart.T[cols]
+
+    #display table
+    st.write(baseChart02)
