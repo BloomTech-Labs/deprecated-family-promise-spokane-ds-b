@@ -22,28 +22,32 @@ def write():
 
     df = loadDataFile(my_file)
     st.title("Descriptive Statistics")
-    minDate = list(df["Enroll Date"].sort_values(axis=0, ascending=True).head())[0].to_pydatetime()
-    maxDate = list(df["Enroll Date"].sort_values(axis=0, ascending=True).tail())[-1].to_pydatetime()
-    startVal = list(df["Enroll Date"].sort_values(axis=0, ascending=True))[200].to_pydatetime()
+
+    minDate = list(df["Enroll Date"].dt.date.sort_values(axis=0, ascending=True).head())[0]
+    maxDate = list(df["Enroll Date"].dt.date.sort_values(axis=0, ascending=True).tail())[-1]
+    startVal = list(df["Enroll Date"].dt.date.sort_values(axis=0, ascending=True))[200]
 
     start_time = st.sidebar.slider(label="Date Range Start",
                                    min_value=minDate,
                                    max_value=maxDate,
-                                   format="MM/DD/YY")
+                                   format="MM/DD/YY"
+                                )
 
     end_time = st.sidebar.slider(label="Date Range End",
                                  min_value=minDate,
                                  max_value=maxDate,
                                  value=startVal,
-                                 format="MM/DD/YY")
+                                 format="MM/DD/YY"
+                                 )
 
+    
     st.write("Analyzing Range: ", start_time, "to ", end_time)
 
     # con_noExit = df["Exit Date"].isnull() == True
     # noExit_cleaned_df = df[con_noExit]
     # currEnrolled_df = df[con_noExit]
 
-    con_dtRange = (df["Enroll Date"] >= start_time) & (df["Enroll Date"] <= end_time)
+    con_dtRange = (df["Enroll Date"].dt.date >= start_time) & (df["Enroll Date"].dt.date <= end_time)
     currEnrolled_df = df[con_dtRange]
 
     # 3 different dfs
@@ -172,9 +176,59 @@ def write():
     baseChart["Mean Case Members Enrolled"]= pd.Series(getCentralTendencies(source)[2], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
     baseChart["Mean Age At Enrollment"]= pd.Series(getCentralTendencies(source)[3], index= ['Unknown/Other', 'NON-Permanent Exit', 'Permanent Exit'])
     
-    # rearrange column order
-    cols =[ 'NON-Permanent Exit', 'Permanent Exit', 'Unknown/Other']
-    baseChart02 = baseChart.T[cols]
+    # Transpose table
+    baseChart02 = baseChart.T.round(0)
+
+    # add index column
+    comparisonVariableColumn = ["Number of Guests",\
+                            "Mean Days Enrolled",
+                            "Mean Bed Nights Enrolled",
+                            "Mean Case Members Enrolled",
+                            "Mean Age At Enrollment"]
+
+    baseChart02["Comparison Variable"] = comparisonVariableColumn
+
+
+    # rearrange column order; round to one decimal place
+    cols =[ 'Comparison Variable', 'NON-Permanent Exit', 'Permanent Exit', 'Unknown/Other']
+    baseChart02 = baseChart02[cols]
 
     #display table
-    st.write(baseChart02)
+    fig, axs = plt.subplots(figsize=(8,2))
+
+    lightbl_color = "#4780b3"
+    lighto_color = "#ffb25e"
+    middle_color = "#fb8b24"
+    worse_color= "#0f4c5c"
+    dnd_color ="#8C031C"
+
+
+    fig.patch.set_visible(False)
+
+    axs.axis("off")
+
+    colors = [[lightbl_color,lighto_color,lighto_color,lighto_color],
+            [lightbl_color,lighto_color,lighto_color,lighto_color],
+            [lightbl_color,lighto_color,lighto_color,lighto_color],
+            [lightbl_color,lighto_color,lighto_color,lighto_color],
+            [lightbl_color,lighto_color,lighto_color,lighto_color]]
+
+
+    table = axs.table(cellText=baseChart02.values,
+            colLabels=baseChart02.columns,
+            cellColours=colors,
+                    loc = "center"
+                    )
+
+    table.set_fontsize(40)
+    table.scale(2,2)
+
+    
+    # set title
+    plt.title(f'Exit Outcome Summary {start_time} to {end_time}', fontsize=18,
+            fontweight= "bold",
+            color= "#454545", y=1.3)
+
+    
+        # st.write(baseChart02)
+    st.pyplot(fig)
