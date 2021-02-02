@@ -30,8 +30,11 @@ from sklearn.inspection import permutation_importance
 from sklearn.metrics import plot_confusion_matrix, classification_report
 import shap
 from fastapi import APIRouter
-
+from fps_dashboard import des_statistics
 router = APIRouter()
+@router.post('/draw_pop_chart')
+async def pop_bar_chart(popChart):
+   return {'Bar Chart': des_statistics.drawPopBarchart(populationBarChart)}
 
    
 @router.post('/visualization')
