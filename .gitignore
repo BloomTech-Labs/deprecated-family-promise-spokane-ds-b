@@ -1,3 +1,5 @@
+# Making sure catboost model training folder doesn't get pulled from 
+# different OS systems
 catboost_info
 
 catboost_info\
@@ -12,6 +14,7 @@ csv_files/catboost_info\
 fps_dashboard/catboost_info\
 notebooks/catboost_info\
 
+# We are using a requirement text file instead
 pipfile.lock
 Pipfile.txt
 pipfile

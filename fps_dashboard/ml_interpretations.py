@@ -34,11 +34,18 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 # This will set the style for all matplots
 plt.style.use('classic')
 
-# """Not in use at the moment"""
 # Load Models
-# cat_model = joblib.load('assets/CatBoost_Model.joblib')
-# xgb_model = joblib.load('assets/XGBoost_Model.joblib')
-# forest_model = joblib.load('assets/Forest_Model.joblib')
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+cat_file = os.path.join(THIS_FOLDER, "Assets/ML_Catboost.joblib")
+cat_model = joblib.load(cat_file)
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+xgb_file = os.path.join(THIS_FOLDER, "Assets/ML_XGBoost.joblib")
+xgb_model = joblib.load(xgb_file)
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+forest_file = os.path.join(THIS_FOLDER, "Assets/ML_Randomforest.joblib")
+forest_model = joblib.load(forest_file)
 
 
 def upload_data(uploaded_file):
@@ -124,12 +131,46 @@ def make_eli5_interpretation(training_set, target, model,
         .encode(x="weight", y=alt.Y("feature", sort="-x"), tooltip=["weight"])
         .properties(height=300, width=675)
     )
-    st.markdown("#### Feature Importance Interpretation")
+    st.markdown("#### ELI5 Weights Explained")
     info_global = st.button("How it is calculated")
+    if info_global:
+        st.info(
+            """
+            Each feature importance is obtained from permutation importances.
+            Also, all the features are randomly shuffled and it shows how
+            much impact the model perfomance used decreases.
+
+            The eli5 plot is only displaying the top 10 features.
+
+            For more information, check out this free course at kaggle:
+            [Link](https://www.kaggle.com/dansbecker/permutation-importance)
+
+            To check out the eli5 documentation, click the link:
+            [ELI5 Documentation](
+                https://eli5.readthedocs.io/en/latest/overview.html
+                )
+            """
+        )
     st.write(bar)
 
-    st.markdown("#### Local Interpretation")
-    info_local = st.button("How this works")
+    st.markdown("#### Permutation Importances")
+    info_local = st.button("Information")
+    if info_local:
+        st.info(
+            """
+            The sklearn plot is displaying all the features in the dataset.
+            It shows which are the least important to the most important
+            features.
+
+            For more information, check out this free course at kaggle:
+            [Link](https://www.kaggle.com/dansbecker/permutation-importance)
+
+            To check out the sklearn documentation, click the link:
+            [Sklearn Documentation](
+                https://scikit-learn.org/stable/modules/permutation_importance.html
+                )
+            """
+        )
     # Permutation importances by sklearn
     imp = permutation_importance(model, training_set, target, random_state=0)
 
@@ -176,8 +217,32 @@ def make_pdp_interpretation(dataset, column_names, training_set, model):
     elif target_value == 'Transitional Housing':
         pdp_plot(isolated[4], feature_name=[feature, target_value])
     st.pyplot()
-    st.markdown("#### Feature Importance Interpretation")
+    st.markdown("#### Partial Dependence Plot")
     info_global = st.button("How it is calculated")
+    if info_global:
+        st.info(
+            """
+            The partial dependence plot shows how a feature affects
+            predictions. Here's how to undertand the pdp plot:
+
+                1. The y axis is interpreted as change in the prediction from
+                   what it would be predicted at the baseline or leftmost
+                   value.
+
+                2. A blue shaded area indicates level of confidence
+
+            You can choose one of out the five prediction classes to see the
+            effects of a selected feature.
+
+            For more information, check out this free course at kaggle:
+            [Link](https://www.kaggle.com/dansbecker/partial-plots)
+
+            To check out the pdp box documentation, click the link:
+            [PDP Box Documentation](
+                https://pdpbox.readthedocs.io/en/latest/index.html
+                )
+            """
+        )
 
 
 def make_shap_interpretation(model, training_set, column_names, ml_name,
@@ -193,12 +258,54 @@ def make_shap_interpretation(model, training_set, column_names, ml_name,
     plt.title(f'SHAP Multi Class Values from {ml_name}',
               fontsize=12, fontweight='bold')
     plt.legend(loc='lower right')
-    st.markdown("#### Feature Importance Interpretation")
+    st.markdown("#### Shap Summary Plot")
     info_global = st.button("How it is calculated")
+    if info_global:
+        st.info(
+            """
+            The shap summary plot explains how each features impact the output
+            of the model to get the overall influence of each class using
+            absolute values. The bigger the bar of the class is the more
+            influence it has on that particular feature.
+
+            The shap summary plot is only displaying the top 10 features.
+
+            For more information, check out this free course at kaggle:
+            [Link](https://www.kaggle.com/dansbecker/shap-values)
+
+            To check out the shap values documentation, click the link:
+            [Shap Values Documentation](
+                https://shap.readthedocs.io/en/latest/example_notebooks/overviews/An%20introduction%20to%20explainable%20AI%20with%20Shapley%20values.html
+                )
+            """
+        )
     st.pyplot()
 
-    st.markdown("#### Local Interpretation")
+    st.markdown("#### Shap Force Plot")
     info_local = st.button("How this works")
+    if info_local:
+        st.info(
+            """
+            The shap force plot demonstrates how each individual feature
+            influence the prediction outcome. Features in the red are the
+            likely ones to be the predicted class whereas the features in blue
+            reduces that probabily to be the predicted class. Is sort of like
+            hot and cold. Heat rises and cold sinks.
+
+            You can choose one of out the five prediction classes to see the
+            effects of a selected feature.
+
+            Please expand the force plot for better readability.
+
+            For more information, check out this free course at kaggle:
+            [Link](https://www.kaggle.com/dansbecker/shap-values)
+
+            To check out the shap values documentation, click the link:
+            [Shap Values Documentation](
+                https://shap.readthedocs.io/en/latest/example_notebooks/overviews/An%20introduction%20to%20explainable%20AI%20with%20Shapley%20values.html
+                )
+            """
+        )
     # Force plot
     slider_idx = st.selectbox('Personal ID of Guest', X.index)
     row_p = X.loc[[slider_idx]]
@@ -217,51 +324,79 @@ def make_shap_interpretation(model, training_set, column_names, ml_name,
             shap_values=shap_values_force[0],
             features=row,
             feature_names=column_names,
-            link='logit'
-        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+            link='logit',
+            show=True,
+            matplotlib=True,
+            figsize=(30, 12),
+            text_rotation=45,
+        )
     elif target_value == 'Permanent Exit':
         shap.force_plot(
             base_value=explainer_force.expected_value[1],
             shap_values=shap_values_force[1],
             features=row,
             feature_names=column_names,
-            link='logit'
-        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+            link='logit',
+            show=True,
+            matplotlib=True,
+            figsize=(30, 12),
+            text_rotation=45
+        )
     elif target_value == 'Emergency Shelter':
         shap.force_plot(
             base_value=explainer_force.expected_value[2],
             shap_values=shap_values_force[2],
             features=row,
             feature_names=column_names,
-            link='logit'
-        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+            link='logit',
+            show=True,
+            matplotlib=True,
+            figsize=(30, 12),
+            text_rotation=45
+        )
     elif target_value == 'Temporary Exit':
         shap.force_plot(
             base_value=explainer_force.expected_value[3],
             shap_values=shap_values_force[3],
             features=row,
             feature_names=column_names,
-            link='logit'
-        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+            link='logit',
+            show=True,
+            matplotlib=True,
+            figsize=(30, 12),
+            text_rotation=45
+        )
     elif target_value == 'Transitional Housing':
         shap.force_plot(
             base_value=explainer_force.expected_value[4],
             shap_values=shap_values_force[4],
             features=row,
             feature_names=column_names,
-            link='logit'
-        ).matplotlib(figsize=(20, 8), show=True, text_rotation=45)
+            link='logit',
+            show=False,
+            matplotlib=True,
+            figsize=(30, 12),
+            text_rotation=45
+        )
+    """
+    Known bugs:
+    1. Posx and posy should be finite values. Text and fig
+       scaling issues.
+    2. Shap - matplotlib = True is not yet supported for force plots 
+       with multiple samples! Example: Pick [Personal ID 53716]
+    3. Segmentation fault. It crashes.
+    """
     st.pyplot()
 
 
 def write():
     # Title and Subheader
     st.title("Machine Learning Interpretation")
-    st.subheader("Family Promise of Spokane")
+
     # CSV File Upload
     THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-    my_file = os.path.join(THIS_FOLDER, "../csv_files/ml_cleaned_data.csv")
-    X, y, df, target_cols = upload_data(my_file)
+    csv_file = os.path.join(THIS_FOLDER, "../csv_files/ml_cleaned_data.csv")
+    X, y, df, target_cols = upload_data(csv_file)
 
     # Split Data
     X_train, X_test, X_val, y_train, y_test, y_val = split_data(X, y)
@@ -271,20 +406,23 @@ def write():
         X_train, X_test, X_val, X)
 
     # Model Selection
+    model_list = ["CatBoost", "XGBoost",
+                  "RandomForest", "Demo + CatBoost"]
     ml_name = st.sidebar.selectbox(
-        "Choose a model", ("CatBoost", "XGBoost", "RandomForest")
+        "Choose a model", model_list, index=3
     )
     if ml_name == "CatBoost":
-        model = CatBoostClassifier(iterations=100, random_state=0,
-                                   verbose=0)
+        model = cat_model
         model.fit(X_train, y_train)
     elif ml_name == "XGBoost":
-        model = XGBClassifier(n_estimators=25, random_state=0,
-                              booster='gbtree', verbosity=0)
+        model = xgb_model
         model.fit(X_train, y_train)
     elif ml_name == "RandomForest":
-        model = RandomForestClassifier(n_estimators=25, random_state=0,
-                                       verbose=0)
+        model = forest_model
+        model.fit(X_train, y_train)
+    elif ml_name == "Demo + CatBoost":
+        model = CatBoostClassifier(iterations=100, random_state=0,
+                                   verbose=0)
         model.fit(X_train, y_train)
 
     # Display Accuracy Scores
