@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from app import db, ml, viz 
+from app import db, ml, viz
 
 description = """
 This is our FastAPI DS API. to use the current api send a post request to 
