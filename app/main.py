@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from app import db, ml, viz
+from app import db, ml, viz 
 
 description = """
 This is our FastAPI DS API. to use the current api send a post request to 
@@ -35,6 +35,7 @@ app = FastAPI(
 app.include_router(db.router, tags=['Database'])
 app.include_router(ml.router, tags=['Machine Learning'])
 app.include_router(viz.router, tags=['Visualization'])
+
 
 app.add_middleware(
     CORSMiddleware,
